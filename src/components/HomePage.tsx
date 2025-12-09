@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { Search, Plus, Check, Heart } from 'lucide-react';
 import { User, Movie } from '../App';
 import { projectId, publicAnonKey } from '../utils/supabase/info';
@@ -14,6 +14,7 @@ export function HomePage({ user }: HomePageProps) {
   const [loading, setLoading] = useState(true);
   const [watchedMovies, setWatchedMovies] = useState<Set<number>>(new Set());
   const [watchlistMovies, setWatchlistMovies] = useState<Set<number>>(new Set());
+  const debounceTimer = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     fetchPopularMovies();
@@ -76,8 +77,8 @@ export function HomePage({ user }: HomePageProps) {
     }
   };
 
-  const handleSearch = async () => {
-    if (!searchQuery.trim()) {
+  const handleSearch = useCallback(async (query: string) => {
+    if (!query.trim()) {
       fetchPopularMovies();
       return;
     }
@@ -85,7 +86,7 @@ export function HomePage({ user }: HomePageProps) {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-0a88fa7c/movies/search?query=${encodeURIComponent(searchQuery)}`,
+        `https://${projectId}.supabase.co/functions/v1/make-server-0a88fa7c/movies/search?query=${encodeURIComponent(query)}`,
         {
           headers: {
             'Authorization': `Bearer ${publicAnonKey}`
@@ -101,6 +102,20 @@ export function HomePage({ user }: HomePageProps) {
     } finally {
       setLoading(false);
     }
+  }, []);
+
+  const debouncedSearch = useCallback((query: string) => {
+    if (debounceTimer.current) {
+      clearTimeout(debounceTimer.current);
+    }
+    debounceTimer.current = setTimeout(() => {
+      handleSearch(query);
+    }, 500);
+  }, [handleSearch]);
+
+  const handleInputChange = (value: string) => {
+    setSearchQuery(value);
+    debouncedSearch(value);
   };
 
   const toggleWatched = async (movie: Movie) => {
@@ -191,24 +206,18 @@ export function HomePage({ user }: HomePageProps) {
         </h2>
         
         {/* Search Bar */}
-        <div className="flex gap-4">
-          <div className="flex-1 relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+        <div className="relative max-w-3xl">
+          <div className="absolute -inset-[1px] bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl opacity-25 pointer-events-none" />
+          <div className="relative flex items-center rounded-xl bg-black/60 border border-white/15">
+            <Search className="ml-4 w-5 h-5 text-purple-300" />
             <input
               type="text"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-              className="w-full pl-12 pr-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors"
-              placeholder="Search for movies..."
+              onChange={(e) => handleInputChange(e.target.value)}
+              className="w-full px-3 py-3 bg-transparent text-sm sm:text-base text-white placeholder-gray-500 focus:outline-none"
+              placeholder="Search movies by title, genre, or actor..."
             />
           </div>
-          <button
-            onClick={handleSearch}
-            className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors"
-          >
-            Search
-          </button>
         </div>
       </div>
 
