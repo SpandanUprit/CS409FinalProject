@@ -80,7 +80,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-black">
-      {/* Navigation */}
+      {}
       <nav className="bg-black/50 backdrop-blur-md border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
@@ -146,7 +146,7 @@ export default function App() {
         </div>
       </nav>
 
-      {/* Page Content */}
+      {}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {currentPage === 'home' && <HomePage user={user} />}
         {currentPage === 'profile' && <ProfilePage user={user} />}

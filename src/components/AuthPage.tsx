@@ -42,7 +42,7 @@ export function AuthPage({ onLogin }: AuthPageProps) {
         throw new Error(data.error || 'Failed to sign up');
       }
 
-      // After signup, sign in
+      
       const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password
@@ -98,7 +98,7 @@ export function AuthPage({ onLogin }: AuthPageProps) {
   return (
     <div className="min-h-screen bg-black flex items-center justify-center p-4">
       <div className="max-w-md w-full">
-        {/* Logo and Title */}
+        {}
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
             <div className="bg-gradient-to-r from-purple-500 to-blue-500 p-4 rounded-full">
@@ -113,7 +113,7 @@ export function AuthPage({ onLogin }: AuthPageProps) {
           </p>
         </div>
 
-        {/* Auth Form */}
+        {}
         <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20">
           <h2 className="text-2xl text-white mb-6">
             {isSignUp ? 'Create Account' : 'Welcome Back'}

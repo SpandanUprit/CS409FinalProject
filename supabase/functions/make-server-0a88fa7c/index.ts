@@ -25,7 +25,7 @@ const supabase = createClient(supabaseUrl, supabaseServiceKey);
 const TMDB_API_KEY = Deno.env.get('TMDB_API_KEY') || 'demo_key';
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 
-// Helper function to fetch from TMDB
+
 async function fetchFromTMDB(endpoint: string) {
   try {
     const url = `${TMDB_BASE_URL}${endpoint}${endpoint.includes('?') ? '&' : '?'}api_key=${TMDB_API_KEY}`;
@@ -33,7 +33,7 @@ async function fetchFromTMDB(endpoint: string) {
     
     if (!response.ok) {
       console.error(`TMDB API error: ${response.status} ${response.statusText}`);
-      // Return demo data if API fails
+      
       return null;
     }
     
@@ -44,7 +44,7 @@ async function fetchFromTMDB(endpoint: string) {
   }
 }
 
-// Demo data for when TMDB API is not available
+
 const DEMO_MOVIES = [
   {
     id: 550,
@@ -156,7 +156,7 @@ const DEMO_MOVIES = [
   }
 ];
 
-// Sign up endpoint
+
 app.post('/make-server-0a88fa7c/signup', async (c) => {
   try {
     const { email, password, name } = await c.req.json();
@@ -169,7 +169,7 @@ app.post('/make-server-0a88fa7c/signup', async (c) => {
       email,
       password,
       user_metadata: { name },
-      // Automatically confirm the user's email since an email server hasn't been configured.
+      
       email_confirm: true
     });
 
@@ -185,13 +185,13 @@ app.post('/make-server-0a88fa7c/signup', async (c) => {
   }
 });
 
-// Get popular movies
+
 app.get('/make-server-0a88fa7c/movies/popular', async (c) => {
   try {
     const data = await fetchFromTMDB('/movie/popular');
     
     if (!data || !data.results) {
-      // Return demo data if API fails
+      
       return c.json({ movies: DEMO_MOVIES });
     }
 
@@ -202,7 +202,7 @@ app.get('/make-server-0a88fa7c/movies/popular', async (c) => {
   }
 });
 
-// Search movies
+
 app.get('/make-server-0a88fa7c/movies/search', async (c) => {
   try {
     const query = c.req.query('query');
@@ -214,7 +214,7 @@ app.get('/make-server-0a88fa7c/movies/search', async (c) => {
     const data = await fetchFromTMDB(`/search/movie?query=${encodeURIComponent(query)}`);
     
     if (!data || !data.results) {
-      // Return filtered demo data if API fails
+      
       const filtered = DEMO_MOVIES.filter(m => 
         m.title.toLowerCase().includes(query.toLowerCase())
       );
@@ -228,7 +228,7 @@ app.get('/make-server-0a88fa7c/movies/search', async (c) => {
   }
 });
 
-// Get watched movies for a user
+
 app.get('/make-server-0a88fa7c/watched-movies', async (c) => {
   try {
     const accessToken = c.req.header('Authorization')?.split(' ')[1];
@@ -246,7 +246,7 @@ app.get('/make-server-0a88fa7c/watched-movies', async (c) => {
   }
 });
 
-// Add a movie to watched list
+
 app.post('/make-server-0a88fa7c/watched-movies', async (c) => {
   try {
     const accessToken = c.req.header('Authorization')?.split(' ')[1];
@@ -264,7 +264,7 @@ app.post('/make-server-0a88fa7c/watched-movies', async (c) => {
 
     const watchedMovies = await kv.get(`watched:${user.id}`) || [];
     
-    // Check if movie already exists
+    
     if (!watchedMovies.some((m: any) => m.id === movie.id)) {
       watchedMovies.push(movie);
       await kv.set(`watched:${user.id}`, watchedMovies);
@@ -277,7 +277,7 @@ app.post('/make-server-0a88fa7c/watched-movies', async (c) => {
   }
 });
 
-// Remove a movie from watched list
+
 app.delete('/make-server-0a88fa7c/watched-movies', async (c) => {
   try {
     const accessToken = c.req.header('Authorization')?.split(' ')[1];
@@ -305,7 +305,7 @@ app.delete('/make-server-0a88fa7c/watched-movies', async (c) => {
   }
 });
 
-// Get watchlist for a user
+
 app.get('/make-server-0a88fa7c/watchlist', async (c) => {
   try {
     const accessToken = c.req.header('Authorization')?.split(' ')[1];
@@ -323,7 +323,7 @@ app.get('/make-server-0a88fa7c/watchlist', async (c) => {
   }
 });
 
-// Add a movie to watchlist
+
 app.post('/make-server-0a88fa7c/watchlist', async (c) => {
   try {
     const accessToken = c.req.header('Authorization')?.split(' ')[1];
@@ -341,7 +341,7 @@ app.post('/make-server-0a88fa7c/watchlist', async (c) => {
 
     const watchlistMovies = await kv.get(`watchlist:${user.id}`) || [];
     
-    // Check if movie already exists
+    
     if (!watchlistMovies.some((m: any) => m.id === movie.id)) {
       watchlistMovies.push(movie);
       await kv.set(`watchlist:${user.id}`, watchlistMovies);
@@ -354,7 +354,7 @@ app.post('/make-server-0a88fa7c/watchlist', async (c) => {
   }
 });
 
-// Remove a movie from watchlist
+
 app.delete('/make-server-0a88fa7c/watchlist', async (c) => {
   try {
     const accessToken = c.req.header('Authorization')?.split(' ')[1];
@@ -382,7 +382,7 @@ app.delete('/make-server-0a88fa7c/watchlist', async (c) => {
   }
 });
 
-// Get personalized recommendations
+
 app.get('/make-server-0a88fa7c/recommendations', async (c) => {
   try {
     const accessToken = c.req.header('Authorization')?.split(' ')[1];

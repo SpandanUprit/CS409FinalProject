@@ -37,7 +37,7 @@ export function HomePage({ user }: HomePageProps) {
         setWatchedMovies(new Set(watchedData.movies.map((m: Movie) => m.id)));
       }
 
-      // Fetch watchlist
+      
       const watchlistResponse = await fetch(
         `https://${projectId}.supabase.co/functions/v1/make-server-0a88fa7c/watchlist`,
         {
@@ -205,7 +205,7 @@ export function HomePage({ user }: HomePageProps) {
           Browse Movies
         </h2>
         
-        {/* Search Bar */}
+        {}
         <div className="relative max-w-3xl">
           <div className="absolute -inset-[1px] bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl opacity-25 pointer-events-none" />
           <div className="relative flex items-center rounded-xl bg-black/60 border border-white/15">
@@ -221,7 +221,7 @@ export function HomePage({ user }: HomePageProps) {
         </div>
       </div>
 
-      {/* Movies Grid */}
+      {}
       {loading ? (
         <div className="text-center text-white py-12">Loading movies...</div>
       ) : (
