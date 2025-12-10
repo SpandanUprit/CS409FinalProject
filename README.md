@@ -1,15 +1,15 @@
-# Movielationships 🎬🍿
+# Movielationships
 
 **Movielationships** is a web application designed for movie lovers who are tired of generic suggestions. We help you discover hidden gems and new favorites based on deep connections to the movies you already love—going beyond simple genre matching.
 
-## ✨ Features
+## Features
 
 * **Smart Recommendations:** Find movies similar to your favorites based on nuanced relationships (themes, tone, directors, and more).
 * **Favorites Collection:** 'Heart' the movies you love to refine your recommendation profile.
 * **Watchlist:** Keep track of the movies you discover and want to watch later so you never forget a title.
 * **Personalized Profile:** Manage your preferences and viewing history in one place.
 
-## 🚀 Getting Started
+## Getting Started
 
 Follow these instructions to get a local copy of the project up and running on your machine.
 
@@ -37,11 +37,11 @@ Ensure you have the following installed on your local machine:
     * Add your required API keys (e.g., Supabase or Movie Database keys).
     * *Example:*
         ```env
-        VITE_SUPABASE_URL=your_supabase_url_here
-        VITE_SUPABASE_ANON_KEY=your_supabase_key_here
+        VITE_SUPABASE_PROJECT_ID=aqejcjjmeienghvmeqyg
+        VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFxZWpjamptZWllbmdodm1lcXlnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTE1MjQsImV4cCI6MjA4MDg2NzUyNH0.yBOz7XdqqOFr4PStMFFqvmS0DI1WUYemmyA2prqZl90
         ```
 
-### 🏃‍♂️ Running the App
+### Running the App
 
 To start the local development server:
 
