@@ -4,6 +4,7 @@ import { HomePage } from './components/HomePage';
 import { ProfilePage } from './components/ProfilePage';
 import { WatchlistPage } from './components/WatchlistPage';
 import { RecommendationsPage } from './components/RecommendationsPage';
+import { LandingPage } from './components/LandingPage';
 import { getSupabaseClient } from './utils/supabase/client';
 
 const supabase = getSupabaseClient();
@@ -29,6 +30,7 @@ export default function App() {
   const [user, setUser] = useState<User | null>(null);
   const [currentPage, setCurrentPage] = useState<'home' | 'profile' | 'watchlist' | 'recommendations'>('home');
   const [loading, setLoading] = useState(true);
+  const [showLanding, setShowLanding] = useState(false);
 
   useEffect(() => {
     checkSession();
@@ -80,14 +82,24 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-black">
-      {}
+      {showLanding && (
+        <LandingPage
+          onEnter={() => {
+            setCurrentPage('home');
+            setShowLanding(false);
+          }}
+        />
+      )}
       <nav className="bg-black/50 backdrop-blur-md border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-8">
-              <h1 className="text-white text-2xl">
+              <button
+                onClick={() => setShowLanding(true)}
+                className="text-white text-2xl font-semibold tracking-tight focus:outline-none"
+              >
                 Movielationships
-              </h1>
+              </button>
               <div className="flex gap-4">
                 <button
                   onClick={() => setCurrentPage('home')}
@@ -146,7 +158,6 @@ export default function App() {
         </div>
       </nav>
 
-      {}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {currentPage === 'home' && <HomePage user={user} />}
         {currentPage === 'profile' && <ProfilePage user={user} />}
