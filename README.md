@@ -1,22 +1,49 @@
+# Movielationships 🎬🍿
 
-  # Personalized Movie Recommendation App (Copy)
+**Movielationships** is a web application designed for movie lovers who are tired of generic suggestions. We help you discover hidden gems and new favorites based on deep connections to the movies you already love—going beyond simple genre matching.
 
-  # TODO
-  add stuff here
-  ss242@illinois.edu Shankar Sathyanarayanan
-  ## Running the code
+## ✨ Features
 
-  Run `npm i` to install the dependencies.
+* **Smart Recommendations:** Find movies similar to your favorites based on nuanced relationships (themes, tone, directors, and more).
+* **Favorites Collection:** 'Heart' the movies you love to refine your recommendation profile.
+* **Watchlist:** Keep track of the movies you discover and want to watch later so you never forget a title.
+* **Personalized Profile:** Manage your preferences and viewing history in one place.
 
-  Run `npm run dev` to start the development server.
-  
-## Environment setup
+## 🚀 Getting Started
 
-1. Copy the example env file and fill in your Supabase credentials:
-   ```bash
-   cp .env.example .env
-   ```
-2. Set `VITE_SUPABASE_PROJECT_ID` to your Supabase project ref (e.g., `aqejcjjmeienghvmeqyg`).
-3. Set `VITE_SUPABASE_ANON_KEY` to the public anon key from the Supabase dashboard.
+Follow these instructions to get a local copy of the project up and running on your machine.
 
-> The `.env` file is ignored by git so your keys stay out of version control.
+### Prerequisites
+
+Ensure you have the following installed on your local machine:
+* **Node.js** (v16 or higher recommended)
+* **npm** (usually installed automatically with Node.js)
+
+### Installation
+
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/your-username/movielationships.git](https://github.com/your-username/movielationships.git)
+    cd movielationships
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+3.  **Environment Configuration:**
+    * Create a `.env` file in the root directory.
+    * Add your required API keys (e.g., Supabase or Movie Database keys).
+    * *Example:*
+        ```env
+        VITE_SUPABASE_URL=your_supabase_url_here
+        VITE_SUPABASE_ANON_KEY=your_supabase_key_here
+        ```
+
+### 🏃‍♂️ Running the App
+
+To start the local development server:
+
+```bash
+npm run dev
